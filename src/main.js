@@ -141,11 +141,11 @@ function update(){
         console.log("FACING BACKWARD");
     }
     if(Phaser.Input.Keyboard.JustDown(keyD)){
-        this.reaper.setTexture('reaperR');
+        this.reaper.setTexture('reaperL');
         console.log("FACING RIGHT");
     }
     if(Phaser.Input.Keyboard.JustDown(keyA)){
-        this.reaper.setTexture('reaperL');
+        this.reaper.setTexture('reaperR');
         console.log("FACING LEFT");
     }
  
