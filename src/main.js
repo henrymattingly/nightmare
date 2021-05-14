@@ -133,7 +133,7 @@ this.nextEnemy = 0;
 //change looking direction of reaper
 function update(){
     if(Phaser.Input.Keyboard.JustDown(keyW)){
-        dthis.reaper.setTexture('reaperF');
+        this.reaper.setTexture('reaperF');
         console.log("FACING FORWARD");
     }
     if(Phaser.Input.Keyboard.JustDown(keyS)){
