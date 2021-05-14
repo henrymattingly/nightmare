@@ -100,7 +100,7 @@ function create(){
     //create character and background
     this.background = this.add.tileSprite(0, 0, 640, 480, 'forest').setOrigin(0, 0);
 
-    reaper = this.add.sprite(320, 240, 'reaperF'); //coords are center of the forest crossroads. 
+    this.reaper = this.add.sprite(320, 240, 'reaperF'); //coords are center of the forest crossroads. 
 
     var graphics = this.add.graphics();
 
@@ -133,20 +133,19 @@ this.nextEnemy = 0;
 //change looking direction of reaper
 function update(){
     if(Phaser.Input.Keyboard.JustDown(keyW)){
-        //this.reaper.setTexture('reaperF');
-        reaper = this.add.sprite(320, 240, 'reaperF');
+        dthis.reaper.setTexture('reaperF');
         console.log("FACING FORWARD");
     }
     if(Phaser.Input.Keyboard.JustDown(keyS)){
-        reaper = this.add.sprite(320, 240, "reaperB");
+        this.reaper.setTexture('reaperB');
         console.log("FACING BACKWARD");
     }
     if(Phaser.Input.Keyboard.JustDown(keyD)){
-        reaper = this.add.sprite(320, 240, "reaperR");
+        this.reaper.setTexture('reaperR');
         console.log("FACING RIGHT");
     }
     if(Phaser.Input.Keyboard.JustDown(keyA)){
-        reaper = this.add.sprite(320, 240, "reaperL");
+        this.reaper.setTexture('reaperL');
         console.log("FACING LEFT");
     }
  
