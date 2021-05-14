@@ -90,18 +90,21 @@ this.follower = { t: 0, vec: new Phaser.Math.Vector2()};
 function create(){
 
 
+    //keyboard input
     keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
 
+    //create character and background
     this.background = this.add.tileSprite(0, 0, 640, 480, 'forest').setOrigin(0, 0);
 
-    this.reaper = this.add.sprite(320, 240, 'reaperF'); //coords are center of the forest crossroads. 
+    reaper = this.add.sprite(320, 240, 'reaperF'); //coords are center of the forest crossroads. 
 
     var graphics = this.add.graphics();
 
+    //create path for enemies to follow
     path1 = this.add.path(320, 0);
     path1.lineTo(320, 240); 
 
@@ -127,21 +130,23 @@ enemies = this.add.group({classType: Enemy, runChildUpdate: true});
 this.nextEnemy = 0;
 */
 
+//change looking direction of reaper
 function update(){
     if(Phaser.Input.Keyboard.JustDown(keyW)){
-        this.reaper = this.add.sprite(320, 240, 'reaperF');
+        //this.reaper.setTexture('reaperF');
+        reaper = this.add.sprite(320, 240, 'reaperF');
         console.log("FACING FORWARD");
     }
     if(Phaser.Input.Keyboard.JustDown(keyS)){
-        this.reaper = this.add.sprite(320, 240, "reaperB");
+        reaper = this.add.sprite(320, 240, "reaperB");
         console.log("FACING BACKWARD");
     }
     if(Phaser.Input.Keyboard.JustDown(keyD)){
-        this.reaper = this.add.sprite(320, 240, "reaperR");
+        reaper = this.add.sprite(320, 240, "reaperR");
         console.log("FACING RIGHT");
     }
     if(Phaser.Input.Keyboard.JustDown(keyA)){
-        this.reaper = this.add.sprite(320, 240, "reaperL");
+        reaper = this.add.sprite(320, 240, "reaperL");
         console.log("FACING LEFT");
     }
  
