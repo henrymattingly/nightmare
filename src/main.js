@@ -1,17 +1,15 @@
-var config = {
-    type: Phaser.AUTO,
-    parent: 'content',
-    width: 640,
-    height: 480,
-    scene: {
-        key: 'main',
-        preload: preload,
-        create: create,
-        update: update,
+let config = {
+    type : Phaser.CANVAS,
+    width : 640,
+    height : 480,
+    physics : {
+        default : 'arcade',
+        arcade :{
 
+        }
     },
-};
-
+    scene : [Play]
+}
 var game = new Phaser.Game(config);
 
 var graphics;
@@ -23,8 +21,8 @@ var ENEMY_SPEED = 1/1000;
 
 
 
-let keyW, keyA, keyS, keyD;
-
+let keyW, keyA, keyS, keyD, keySPACE;
+/*
 function preload(){
     this.load.image('forest', 'assets/haunted_forest.png');
     this.load.image('reaperF', 'assets/RPFront.png');
@@ -33,7 +31,7 @@ function preload(){
     this.load.image('reaperR', 'assets/RPRight.png');
     this.load.image('fireBall', 'assets/fireBall.png');
 }
-
+*/
 var Enemy = new Phaser.Class({
 
     Extends: Phaser.GameObjects.Image,
@@ -88,6 +86,7 @@ var Enemy = new Phaser.Class({
 });
 this.follower = { t: 0, vec: new Phaser.Math.Vector2()};
 
+/*
 function create(){
 
 
@@ -103,10 +102,9 @@ function create(){
     this.background = this.add.tileSprite(0, 0, 640, 480, 'forest').setOrigin(0, 0);
 
     this.reaper = this.add.sprite(320, 240, 'reaperF'); //coords are center of the forest crossroads. 
-    this.fireball = this.add.sprite(305, 180, 'fireBall').setOrigin(0,0);
-    this.fireball.setActive(false);
-    this.fireball.setVisible(false);
+}
 
+    
     var graphics = this.add.graphics();
 
     //create path for enemies to follow
@@ -130,10 +128,10 @@ function create(){
     path4.draw(graphics);
 }
 
-/*
+
 enemies = this.add.group({classType: Enemy, runChildUpdate: true});
 this.nextEnemy = 0;
-*/
+
 
 //change looking direction of reaper
 function update(){
@@ -158,4 +156,6 @@ function update(){
         this.reaper.setTexture('reaperR');
         console.log("FACING LEFT");
     }
+    
 }
+*/

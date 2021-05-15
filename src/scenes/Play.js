@@ -1,6 +1,6 @@
-/*class Play extends Phaser.scene{
-    constructor(){
-        super("playScene")
+class Play extends Phaser.Scene {
+    constructor() {
+        super("playScene");
     }
     
 
@@ -10,6 +10,7 @@
     this.load.image('reaperB', 'assets/RPBack.png');
     this.load.image('reaperL', 'assets/RPLeft.png');
     this.load.image('reaperR', 'assets/RPRight.png');
+    this.load.image('fireball', 'assets/fireBall.png');
 
     }
 
@@ -20,11 +21,16 @@
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
 
 
     this.background = this.add.tileSprite(0, 0, 640, 480, 'forest').setOrigin(0, 0);
-
     this.reaper = this.add.sprite(320, 240, 'reaperF'); //coords are center of the forest crossroads. 
+    this.fireball = this.add.sprite(320, 205, 'fireball');
+    
+    this.fireball.setActive(false);
+    this.fireball.setVisible(false);
 
     var graphics = this.add.graphics();
 
@@ -51,7 +57,25 @@
 
 
     update(){
-
+        if(Phaser.Input.Keyboard.JustDown(keyW)){
+            this.reaper.setTexture('reaperF');
+            console.log("FACING FORWARD");
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyS)){
+            this.reaper.setTexture('reaperB');
+            console.log("FACING BACKWARD");
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyD)){
+            this.reaper.setTexture('reaperL');
+            console.log("FACING RIGHT");
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyA)){
+            this.reaper.setTexture('reaperR');
+            console.log("FACING LEFT");
+        }if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+            this.fireball.setActive(true);
+            this.fireball.setVisible(true);
+            console.log("FIRE BALL");
+        }
     }
 }
-*/
