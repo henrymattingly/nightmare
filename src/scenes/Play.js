@@ -60,7 +60,7 @@ class Play extends Phaser.Scene {
     {
         this.reaper.update();
     }
-/*
+
     update(){
         if(Phaser.Input.Keyboard.JustDown(keyW)){
             this.reaper.setTexture('reaperF');
@@ -83,5 +83,5 @@ class Play extends Phaser.Scene {
             console.log("FIRE BALL");
         }
     }
-    */
+    
 }
