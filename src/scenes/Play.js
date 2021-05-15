@@ -26,7 +26,8 @@ class Play extends Phaser.Scene {
 
 
     this.background = this.add.tileSprite(0, 0, 640, 480, 'forest').setOrigin(0, 0);
-    this.reaper = this.add.sprite(320, 240, 'reaperF'); //coords are center of the forest crossroads. 
+    this.reaper = new player(this, 288, 215, 'reaperF').setOrigin(0, 0);
+    //this.reaper = this.add.sprite(320, 240, 'reaperF'); //coords are center of the forest crossroads. 
     this.fireball = this.add.sprite(320, 205, 'fireball');
     
     this.fireball.setActive(false);
@@ -55,7 +56,11 @@ class Play extends Phaser.Scene {
 
     }
 
-
+    update()
+    {
+        this.reaper.update();
+    }
+/*
     update(){
         if(Phaser.Input.Keyboard.JustDown(keyW)){
             this.reaper.setTexture('reaperF');
@@ -78,4 +83,5 @@ class Play extends Phaser.Scene {
             console.log("FIRE BALL");
         }
     }
+    */
 }
