@@ -5,26 +5,36 @@ class player extends Phaser.GameObjects.Sprite{
         scene.add.existing(this);
 
     }
+
+    preload(){
+        this.load.image('reaperF', 'assets/RPFront.png');
+        this.load.image('reaperB', 'assets/RPBack.png');
+        this.load.image('reaperL', 'assets/RPLeft.png');
+        this.load.image('reaperR', 'assets/RPRight.png');
+        this.load.image('fireball', 'assets/fireBall.png');
+    
+        }
+
     update(){
         if(Phaser.Input.Keyboard.JustDown(keyW)){
             this.reaper.setTexture('reaperF');
-            console.log("FACING FORWARD");
+            //console.log("FACING FORWARD");
         }
         if(Phaser.Input.Keyboard.JustDown(keyS)){
-            this.reaper.setTexture('reaperB');
+            //this.reaper.setTexture('reaperB');
             console.log("FACING BACKWARD");
         }
         if(Phaser.Input.Keyboard.JustDown(keyD)){
-            this.reaper.setTexture('reaperL');
+            //this.reaper.setTexture('reaperL');
             console.log("FACING RIGHT");
         }
         if(Phaser.Input.Keyboard.JustDown(keyA)){
-            this.reaper.setTexture('reaperR');
+            //this.reaper.setTexture('reaperR');
             console.log("FACING LEFT");
         }if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-            this.fireball.setActive(true);
-            this.fireball.setVisible(true);
-            console.log("FIRE BALL");
+            //this.fireball.setActive(true);
+            //this.fireball.setVisible(true);
+            //console.log("FIRE BALL");
         }
     }
 }

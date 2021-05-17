@@ -3,6 +3,10 @@ class Fire extends Phaser.GameObjects.Sprite{
         super (scene, x, y, texture, frame);
 
         scene.add.existing(this);
-
+        this.moveSpeed = 4;
+    }
+    update(){
+        this.y -= this.moveSpeed;
+        //console.log("FIRE BALL");
     }
 }

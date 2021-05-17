@@ -22,6 +22,9 @@ var ENEMY_SPEED = 1/1000;
 
 
 let keyW, keyA, keyS, keyD, keySPACE;
+
+const fireVelocityY = 2;
+const fireVelocityX = 2;
 /*
 function preload(){
     this.load.image('forest', 'assets/haunted_forest.png');
@@ -85,6 +88,7 @@ var Enemy = new Phaser.Class({
 
 });
 this.follower = { t: 0, vec: new Phaser.Math.Vector2()};
+
 
 /*
 function create(){
