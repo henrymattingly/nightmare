@@ -14,6 +14,7 @@ class Play extends Phaser.Scene {
     this.load.image('fireballLeft', 'assets/fireBallLeft.png');
     this.load.image('fireballFront', 'assets/fireBallFront.png');
     this.load.image('fireballDown', 'assets/fireBallDown.png');
+    this.load.image('zombieDown', 'assets/zombieFront.png');
 
     }
 
@@ -30,6 +31,7 @@ class Play extends Phaser.Scene {
         //preload the player and background
         this.background = this.add.tileSprite(0, 0, 640, 480, 'forest').setOrigin(0, 0);
         this.reaper = new player(this, 288, 215, 'reaperF').setOrigin(0, 0);
+        this.zombie = new Zombie(this, 320, 0, 'zombieDown');
 
         //make the fireballs in a group
         this.fireGroupfront = this.add.group({
@@ -69,6 +71,7 @@ class Play extends Phaser.Scene {
     }
 
     update(){
+        this.zombie.update();
         if(Phaser.Input.Keyboard.JustDown(keyW)){
             this.reaper.setTexture('reaperB');
             this.addFireFront();
@@ -93,6 +96,11 @@ class Play extends Phaser.Scene {
             this.addFireFront();
             console.log("FIRE BALL");
         }
+
+        this.physics.world.overlap(this.zombie, this.fireGroupfront, this.zombieCollide, null, this);
     }
     
+    zombieCollide(){
+        this.zombie.destroy();
+    }
 }

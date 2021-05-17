@@ -3,7 +3,14 @@ class Zombie extends Phaser.GameObjects.Sprite{
         super (scene, x, y, texture, frame);
 
         scene.add.existing(this);
-
+        this.speed = .2;
     }
 
+    update()
+    {
+        this.y += this.speed;
+        if(this.y == -game.config.height){
+            this.destroy();
+        }
+    }
 }
