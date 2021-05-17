@@ -11,7 +11,6 @@ class player extends Phaser.GameObjects.Sprite{
         this.load.image('reaperB', 'assets/RPBack.png');
         this.load.image('reaperL', 'assets/RPLeft.png');
         this.load.image('reaperR', 'assets/RPRight.png');
-        this.load.image('fireball', 'assets/fireBall.png');
     
         }
 

@@ -10,7 +10,10 @@ class Play extends Phaser.Scene {
     this.load.image('reaperB', 'assets/RPBack.png');
     this.load.image('reaperL', 'assets/RPLeft.png');
     this.load.image('reaperR', 'assets/RPRight.png');
-    this.load.image('fireball', 'assets/fireBall.png');
+    this.load.image('fireballRight', 'assets/fireBallRight.png');
+    this.load.image('fireballLeft', 'assets/fireBallLeft.png');
+    this.load.image('fireballFront', 'assets/fireBallFront.png');
+    this.load.image('fireballDown', 'assets/fireBallDown.png');
 
     }
 
@@ -29,38 +32,67 @@ class Play extends Phaser.Scene {
         this.reaper = new player(this, 288, 215, 'reaperF').setOrigin(0, 0);
 
         //make the fireballs in a group
-        this.fireGroup = this.add.group({
+        this.fireGroupfront = this.add.group({
+            runChildUpdate : true
+        });
+        this.fireGroupback = this.add.group({
+            runChildUpdate : true
+        });
+        this.fireGroupleft = this.add.group({
+            runChildUpdate : true
+        });
+        this.fireGroupright = this.add.group({
             runChildUpdate : true
         });
     }
 
     //create each fireball
-    addFire()
+    addFireFront()
     {
-        let fireball = new Fire(this, 320, 205, 'fireball');
-        this.fireGroup.add(fireball);
+        let fireballfront = new FireFront(this, 320, 205, 'fireballFront');
+        this.fireGroupfront.add(fireballfront);
+    }
+    addFireBack()
+    {
+        let fireballback = new FireBack(this, 320, 260, 'fireballDown');
+        this.fireGroupback.add(fireballback);
+    }
+    addFireLeft()
+    {
+        let fireballleft = new FireLeft(this, 300, 250, 'fireballLeft');
+        this.fireGroupleft.add(fireballleft);
+    }
+    addFireRight()
+    {
+        let fireballright = new FireRight(this, 340, 250, 'fireballRight');
+        this.fireGroupright.add(fireballright);
     }
 
     update(){
         if(Phaser.Input.Keyboard.JustDown(keyW)){
-            this.reaper.setTexture('reaperF');
+            this.reaper.setTexture('reaperB');
+            this.addFireFront();
             console.log("FACING FORWARD");
         }
         if(Phaser.Input.Keyboard.JustDown(keyS)){
-            this.reaper.setTexture('reaperB');
+            this.reaper.setTexture('reaperF');
+            this.addFireBack();
             console.log("FACING BACKWARD");
         }
         if(Phaser.Input.Keyboard.JustDown(keyD)){
-            this.reaper.setTexture('reaperL');
+            this.reaper.setTexture('reaperR');
+            this.addFireRight();
             console.log("FACING RIGHT");
         }
         if(Phaser.Input.Keyboard.JustDown(keyA)){
-            this.reaper.setTexture('reaperR');
+            this.reaper.setTexture('reaperL');
+            this.addFireLeft();
             console.log("FACING LEFT");
         }
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-            this.addFire();
+            this.addFireFront();
             console.log("FIRE BALL");
         }
     }
+    
 }

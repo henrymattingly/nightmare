@@ -1,4 +1,4 @@
-class Fire extends Phaser.GameObjects.Sprite{
+class FireFront extends Phaser.GameObjects.Sprite{
     constructor(scene, x, y, texture, frame) {
         super (scene, x, y, texture, frame);
 
@@ -7,6 +7,9 @@ class Fire extends Phaser.GameObjects.Sprite{
     }
     update(){
         this.y -= this.moveSpeed;
-        //console.log("FIRE BALL");
+        if(this.y == game.config.height)
+        {
+            this.destroy();
+        }
     }
 }
