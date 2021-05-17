@@ -8,7 +8,7 @@ let config = {
 
         }
     },
-    scene : [Play]
+    scene : [Menu,Play]
 }
 var game = new Phaser.Game(config);
 
