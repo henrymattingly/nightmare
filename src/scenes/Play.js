@@ -59,7 +59,22 @@ class Play extends Phaser.Scene {
         });
 
         worldBounds = this.physics.world.bounds;
+/*
+        this.zombieGroup = this.add.group({
+            runChildUpdate: true
+        });
+
+        this.time.delayedCall(2000, () => {
+            this.addZombie();
+        });
+*/
     }
+/*
+    addZombie(){
+        let zombie = new Zombie(this, 320, 0, 'zombieDown');
+        this.zombieGroup.add(zombie);
+    }
+*/
 
     //create each fireball
     addFireFront()
@@ -82,6 +97,7 @@ class Play extends Phaser.Scene {
         let fireballright = new FireRight(this, 340, 250, 'fireballRight');
         this.fireGroupright.add(fireballright);
     }
+
 
     update(){
         let angle = Phaser.Math.Angle.Between(this.emptySprite.x, this.emptySprite.y, input.x, input.y);
