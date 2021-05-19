@@ -13,4 +13,9 @@ let config = {
 var game = new Phaser.Game(config);
 
 
-let keyW, keyA, keyS, keyD, keySPACE;
+let keyW, keyA, keyS, keyD, keySPACE, keyQ, keyE, keyF, input, mouse;
+
+let centerX = game.config.width/2;
+let centerY = game.config.height/2;
+var control = false;
+var worldBounds;
