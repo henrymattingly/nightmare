@@ -31,10 +31,20 @@ class Play extends Phaser.Scene {
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+
         keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+
+        this.currentWeapon = 'fire';
+
+        this.input.keyboard.on('keydown-Q', () => 
+        { 
+            this.currentWeapon = 'waterball';
+        });
+
+
         mouse = this.input.mousePointer;
 
         //preload the player and background
@@ -58,23 +68,38 @@ class Play extends Phaser.Scene {
             runChildUpdate : true
         });
 
-        worldBounds = this.physics.world.bounds;
-/*
+    worldBounds = this.physics.world.bounds;
+
         this.zombieGroup = this.add.group({
             runChildUpdate: true
         });
 
+
+
+
         this.time.delayedCall(2000, () => {
             this.addZombie();
         });
-*/
+
     }
-/*
+
     addZombie(){
-        let zombie = new Zombie(this, 320, 0, 'zombieDown');
+        const spawnPoints = [
+            [320,0],
+            [100,100],
+            [200,200],
+        ];
+        let i = Phaser.Math.Between(0, spawnPoints.length);
+
+        let [x,y] = spawnPoints[i];
+        let zombie = new Zombie(this, x, y, 'zombieDown');
         this.zombieGroup.add(zombie);
     }
-*/
+
+
+
+
+
 
     //create each fireball
     addFireFront()
@@ -106,8 +131,8 @@ class Play extends Phaser.Scene {
         //if(mouse.isDown && control == false)
         if(mouse.isDown)
         {
-            this.waterball = this.physics.add.sprite(centerX, centerY, 'waterball');
-            this.physics.moveTo(this.waterball, input.x, input.y, 500);
+            let projectile = this.physics.add.sprite(centerX, centerY, this.currentWeapon);
+            this.physics.moveTo(projectile, input.x, input.y, 500);
             //control = true;
         }
 /*
@@ -115,7 +140,7 @@ class Play extends Phaser.Scene {
             control = false;
         }
 */
-        this.zombie.update();
+        //this.zombie.update();
         if(Phaser.Input.Keyboard.JustDown(keyW)){
             this.reaper.setTexture('reaperB');
             this.addFireFront();
