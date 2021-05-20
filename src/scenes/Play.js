@@ -5,7 +5,7 @@ class Play extends Phaser.Scene {
     
 
     preload(){
-    this.load.image('forest', 'assets/haunted_forest.png');
+    this.load.image('forest', 'assets/background.png');
     this.load.image('reaperF', 'assets/RPFront.png');
     this.load.image('reaperB', 'assets/RPBack.png');
     this.load.image('reaperL', 'assets/RPLeft.png');
@@ -46,7 +46,6 @@ class Play extends Phaser.Scene {
         //preload the player and background
         this.background = this.add.tileSprite(0, 0, 640, 480, 'forest').setOrigin(0, 0);
         this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
-        //this.zombie = new Zombie(this, 320, 0, 'zombieDown');
         this.emptySprite = this.physics.add.sprite(centerX, centerY,'kylo').setOrigin(.5);
 
 
@@ -66,8 +65,8 @@ class Play extends Phaser.Scene {
     addMonster(){
         const spawnPoints = [
             [320,0], //top
-            //[100,100], 
-           //[200,200],
+            [100,100], 
+            [200,200],
         ];
         let i = Phaser.Math.Between(0, spawnPoints.length);
 
@@ -97,9 +96,8 @@ class Play extends Phaser.Scene {
             control = false;
         }
 */
-        //this.zombie.update();
 
-        //this.physics.world.overlap(this.zombie, this.reaper, this.zombieCollide, null, this);
+        //this.physics.world.overlap(this.zombiegroup, this.reaper, this.zombieCollide, null, this);
         //this.physics.world.overlap(this.zombie, this.waterball, this.zombieCollide, null, this);
     }
     
