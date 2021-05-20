@@ -13,7 +13,7 @@ let config = {
 var game = new Phaser.Game(config);
 
 
-let keyW, keyA, keyS, keyD, keySPACE, keyQ, keyE, keyF, input, mouse;
+let input, mouse;
 
 let centerX = game.config.width/2;
 let centerY = game.config.height/2;
