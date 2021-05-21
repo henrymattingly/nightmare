@@ -22,6 +22,8 @@ class Play extends Phaser.Scene {
 
     create(){
 
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
         input = this.input;
         mouse = this.input.mousePointer;
         worldBounds = this.physics.world.bounds;
@@ -53,24 +55,25 @@ class Play extends Phaser.Scene {
             runChildUpdate: true
         });
 
-
-
-
-        this.time.delayedCall(2000, () => {
-            this.addMonster();
+        this.time.addEvent({
+            delay : 2000,
+            callback: () => {
+                this.addMonster();
+            },
+            loop: true
         });
-
     }
 
     addMonster(){
         const spawnPoints = [
             [320,0], //top
-            [100,100], 
-            [200,200],
+            [100,100], //test
+            [200,200], //test
         ];
-        let i = Phaser.Math.Between(0, spawnPoints.length);
+        let i = Phaser.Math.Between(0, spawnPoints.length - 1);
 
         let [x,y] = spawnPoints[i];
+        console.log(i);
         let zombie = new Zombie(this, x, y, 'zombie');
         this.zombieGroup.add(zombie);
     }
@@ -81,11 +84,15 @@ class Play extends Phaser.Scene {
 
 
     update(){
+
+        let lastSpawn = 0;
+        let spawnCd = 0;
+
         let angle = Phaser.Math.Angle.Between(this.emptySprite.x, this.emptySprite.y, input.x, input.y);
         this.emptySprite.setRotation(angle + Math.PI /2);
         
         //if(mouse.isDown && control == false)
-        if(mouse.isDown)
+        if(Phaser.Input.Keyboard.JustDown(keySPACE))
         {
             let projectile = this.physics.add.sprite(centerX, centerY, this.currentWeapon);
             this.physics.moveTo(projectile, input.x, input.y, 500);
