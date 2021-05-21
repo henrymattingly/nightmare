@@ -95,13 +95,13 @@ class Play extends Phaser.Scene {
             let projectile = this.physics.add.sprite(centerX, centerY, this.currentWeapon);
             this.physics.moveTo(projectile, input.x, input.y, 500);
         }  
-        //this.physics.world.overlap(this.currentWeapon, this.zombieGroup, this.zombieCollide, null, this);
-        //this.physics.world.collide(this.projectile, this.zombieGroup, this.zombieCollide, null, this);
+        //this.physics.world.overlap(this.currentWeapon, this.zombieGroup, this.MonsterCollision, null, this);
+        //this.physics.world.collide(this.projectile, this.zombieGroup, this.MonsterCollision, null, this);
     }
     
-    zombieCollide(){
-       //this.zombie.remove(this.zombieGroup, true, true);
-       //this.zombie.remove();
+    MonsterCollision(){
+       //this.destroy();
+       //this.remove();
        console.log("HELLO FROM ZOMBIE COLLIDE");
     }
 }
