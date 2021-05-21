@@ -1,4 +1,4 @@
-class Zombie extends Phaser.GameObjects.Sprite{
+class Zombie extends Phaser.Physics.Arcade.Image{
     constructor(scene, x, y, texture, frame) {
         super (scene, x, y, texture, frame);
 
@@ -13,5 +13,7 @@ class Zombie extends Phaser.GameObjects.Sprite{
         if(this.y >= game.config.height){
             this.destroy();
         }
+        
     }
+
 }

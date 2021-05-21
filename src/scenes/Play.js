@@ -27,6 +27,7 @@ class Play extends Phaser.Scene {
         input = this.input;
         mouse = this.input.mousePointer;
         worldBounds = this.physics.world.bounds;
+        
         this.currentWeapon = 'waterball';
 
         this.input.keyboard.on('keydown-E', () => 
@@ -46,7 +47,7 @@ class Play extends Phaser.Scene {
 
 
         //preload the player and background
-        this.background = this.add.tileSprite(0, 0, 640, 480, 'forest').setOrigin(0, 0);
+        this.background = this.add.tileSprite(0, 0, 1150, 1000, 'forest').setOrigin(0, 0);
         this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
         this.emptySprite = this.physics.add.sprite(centerX, centerY,'kylo').setOrigin(.5);
 
@@ -70,10 +71,10 @@ class Play extends Phaser.Scene {
             [100,100], //test
             [200,200], //test
         ];
+
         let i = Phaser.Math.Between(0, spawnPoints.length - 1);
 
         let [x,y] = spawnPoints[i];
-        console.log(i);
         let zombie = new Zombie(this, x, y, 'zombie');
         this.zombieGroup.add(zombie);
     }
@@ -85,30 +86,22 @@ class Play extends Phaser.Scene {
 
     update(){
 
-        let lastSpawn = 0;
-        let spawnCd = 0;
-
         let angle = Phaser.Math.Angle.Between(this.emptySprite.x, this.emptySprite.y, input.x, input.y);
         this.emptySprite.setRotation(angle + Math.PI /2);
         
-        //if(mouse.isDown && control == false)
+
         if(Phaser.Input.Keyboard.JustDown(keySPACE))
         {
             let projectile = this.physics.add.sprite(centerX, centerY, this.currentWeapon);
             this.physics.moveTo(projectile, input.x, input.y, 500);
-            //control = true;
-        }
-/*
-        if(projectile.x > worldBounds.width || projectile.y > worldBounds.height || projectile.x < 0 || projectile.y < 0){
-            control = false;
-        }
-*/
-
-        //this.physics.world.overlap(this.zombiegroup, this.reaper, this.zombieCollide, null, this);
-        //this.physics.world.overlap(this.zombie, this.waterball, this.zombieCollide, null, this);
+        }  
+        //this.physics.world.overlap(this.currentWeapon, this.zombieGroup, this.zombieCollide, null, this);
+        //this.physics.world.collide(this.projectile, this.zombieGroup, this.zombieCollide, null, this);
     }
     
     zombieCollide(){
-        this.zombie.destroy();
+       //this.zombie.remove(this.zombieGroup, true, true);
+       //this.zombie.remove();
+       console.log("HELLO FROM ZOMBIE COLLIDE");
     }
 }
