@@ -18,11 +18,13 @@ class Play extends Phaser.Scene {
     this.load.image('kylo', 'assets/kylo.png');
 
     this.load.audio('magic', 'assets/magic_sound.mp3');
-
+    this.load.audio('zombie_sound', 'assets/zombie_sound.mp3');
+    this.load.audio('wind', 'assets/wind.mp3');
     }
 
 
     create(){
+        this.sound.play('wind');
 
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
@@ -69,7 +71,7 @@ class Play extends Phaser.Scene {
             callback: () => {
                 this.addMonster();
             },
-            loop: true
+            loop: true,
         });
     }
 
@@ -108,6 +110,7 @@ class Play extends Phaser.Scene {
             this.zombieGroup.add(this.zombie);
         }
         console.log(i);
+        this.sound.play('zombie_sound');
     }
 
 
