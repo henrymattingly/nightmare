@@ -17,6 +17,8 @@ class Play extends Phaser.Scene {
 
     this.load.image('kylo', 'assets/kylo.png');
 
+    this.load.audio('magic', 'assets/magic_sound.mp3');
+
     }
 
 
@@ -52,6 +54,12 @@ class Play extends Phaser.Scene {
         this.emptySprite = this.physics.add.sprite(centerX, centerY,'kylo').setOrigin(.5);
 
 
+        this.projectileGroup = this.add.group({
+           runChildUpdate: true 
+        });
+    
+
+
         this.zombieGroup = this.add.group({
             runChildUpdate: true
         });
@@ -67,19 +75,40 @@ class Play extends Phaser.Scene {
 
     addMonster(){
         const spawnPoints = [
-            [320,0], //top
-            [100,100], //test
-            [200,200], //test
+            [game.config.width/2, 0], //top
+            [0, game.config.height/2], //left
+            [game.config.width/2, game.config.height], //bottom
+            [game.config.width, game.config.height/2] //right
         ];
 
         let i = Phaser.Math.Between(0, spawnPoints.length - 1);
 
         let [x,y] = spawnPoints[i];
-        let zombie = new Zombie(this, x, y, 'zombie');
-        this.zombieGroup.add(zombie);
+
+
+        //change the sprite of the zombie depending on spawn location
+        if(x == game.config.width/2 && y == 0)
+        {
+            this.zombie = new Zombie(this, x, y, 'fire');
+            this.zombieGroup.add(this.zombie);
+        }
+        if(x == 0 && y == game.config.height/2)
+        {
+            this.zombie = new Zombie(this, x, y, 'waterball')
+            this.zombieGroup.add(this.zombie);
+        }
+        if(x == game.config.width/2 && y == game.config.height)
+        {
+            this.zombie = new Zombie(this, x, y, 'lightning')
+            this.zombieGroup.add(this.zombie);
+        }
+        if(x == game.config.width && y == game.config.height/2)
+        {
+            this.zombie = new Zombie(this, x, y, 'zombie')
+            this.zombieGroup.add(this.zombie);
+        }
+        console.log(i);
     }
-
-
 
 
 
@@ -92,16 +121,20 @@ class Play extends Phaser.Scene {
 
         if(Phaser.Input.Keyboard.JustDown(keySPACE))
         {
-            let projectile = this.physics.add.sprite(centerX, centerY, this.currentWeapon);
-            this.physics.moveTo(projectile, input.x, input.y, 500);
+            this.projectile = this.physics.add.sprite(centerX, centerY, this.currentWeapon);
+            this.projectileGroup.add(this.projectile);
+            this.physics.moveTo(this.projectile, input.x, input.y, 500);
+            this.sound.play('magic');
         }  
-        //this.physics.world.overlap(this.currentWeapon, this.zombieGroup, this.MonsterCollision, null, this);
-        //this.physics.world.collide(this.projectile, this.zombieGroup, this.MonsterCollision, null, this);
+
+        if(this.physics.world.collide(this.zombieGroup, this.projectileGroup)){
+            this.zombieCollide();
+        }
     }
     
-    MonsterCollision(){
-       //this.destroy();
-       //this.remove();
-       console.log("HELLO FROM ZOMBIE COLLIDE");
+
+    zombieCollide(){
+       this.zombie.destroy();
+       this.projectile.destroy();
     }
 }
