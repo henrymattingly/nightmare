@@ -5,17 +5,22 @@ class Play extends Phaser.Scene {
     
 
     preload(){
+
+    this.load.image('kylo', 'assets/kylo.png');
+
     this.load.image('forest', 'assets/background.png');
+
     this.load.image('reaperF', 'assets/RPFront.png');
     this.load.image('reaperB', 'assets/RPBack.png');
     this.load.image('reaperL', 'assets/RPLeft.png');
     this.load.image('reaperR', 'assets/RPRight.png');
+
+
     this.load.image('lightning', 'assets/lightning.png');
     this.load.image('waterball', 'assets/water.png');
     this.load.image('fire','assets/fire.png');
     this.load.image('zombie', 'assets/zombie.png');
 
-    this.load.image('kylo', 'assets/kylo.png');
 
     this.load.audio('magic', 'assets/magic_sound.mp3');
     this.load.audio('zombie_sound', 'assets/zombie_sound.mp3');
@@ -107,25 +112,20 @@ class Play extends Phaser.Scene {
         //change the sprite of the zombie depending on spawn location
         if(x == game.config.width/2 && y == 0)
         {
-            this.zombie = new Zombie(this, x, y, 'fire');
-            this.zombieGroup.add(this.zombie);
+            this.zombieGroup.add(new Zombie(this, x, y, 'fire'));
         }
         if(x == 0 && y == game.config.height/2)
         {
-            this.zombie = new Zombie(this, x, y, 'waterball')
-            this.zombieGroup.add(this.zombie);
+            this.zombieGroup.add(new Zombie(this, x, y, 'waterball'));
         }
         if(x == game.config.width/2 && y == game.config.height)
         {
-            this.zombie = new Zombie(this, x, y, 'lightning')
-            this.zombieGroup.add(this.zombie);
+            this.zombieGroup.add(new Zombie(this, x, y, 'lightning'));
         }
         if(x == game.config.width && y == game.config.height/2)
         {
-            this.zombie = new Zombie(this, x, y, 'zombie')
-            this.zombieGroup.add(this.zombie);
+            this.zombieGroup.add(new Zombie(this, x, y, 'zombie'));
         }
-        console.log(i);
         this.sound.play('zombie_sound');
     }
 
@@ -136,6 +136,15 @@ class Play extends Phaser.Scene {
 
         let angle = Phaser.Math.Angle.Between(this.emptySprite.x, this.emptySprite.y, input.x, input.y);
         this.emptySprite.setRotation(angle + Math.PI /2);
+
+        if (angle > 0)
+        {
+            this.reaper.setTexture('reaperF');
+        }
+        else
+        {
+            this.reaper.setTexture('reaperB');
+        }
         
 
         if(Phaser.Input.Keyboard.JustDown(keySPACE))
@@ -146,17 +155,14 @@ class Play extends Phaser.Scene {
             this.sound.play('magic');
         }  
 
-        if(this.physics.world.collide(this.zombieGroup, this.projectileGroup)){
-            this.zombieCollide();
-        }
+
+
+        this.physics.world.overlap(this.zombieGroup, this.projectileGroup, (zombie,projectile) => {
+            zombie.destroy();
+            projectile.destroy();
+        });
         if(this.physics.world.collide(this.zombieGroup, this.emptySprite)){
             this.scene.start('gameOverScene'); 
         }
-    }
-    
-
-    zombieCollide(){
-       this.zombie.destroy();
-       this.projectile.destroy();
     }
 }
