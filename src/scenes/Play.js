@@ -41,11 +41,11 @@ class Play extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-Q', () => 
         { 
-            this.currentWeapon = 'waterball';
+            this.currentWeapon = 'lightning';
         });
         this.input.keyboard.on('keydown-W', () => 
         { 
-            this.currentWeapon = 'lightning';
+            this.currentWeapon = 'waterball';
         });
 
 

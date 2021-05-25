@@ -11,14 +11,19 @@ class Menu extends Phaser.Scene{
     create()
     {
         this.title = this.add.tileSprite(0, 0, 1150, 1000, 'title_screen').setOrigin(0, 0);
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+        keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     }
 
     update()
     {
-        if(keySPACE.isDown)
+        if(keyP.isDown)
         {
             this.scene.start("playScene");
+        }
+        if(keyC.isDown)
+        {
+            this.scene.start("ControlScene");
         }
     }
 }

@@ -8,12 +8,12 @@ let config = {
 
         }
     },
-    scene : [ Menu, Play]
+    scene : [ Menu ,Control, Play, GameOver]
 }
 var game = new Phaser.Game(config);
 
 
-let keySPACE, input, mouse;
+let keySPACE, input, mouse, keyP, keyC, keyM, keyR;
 
 let centerX = game.config.width/2;
 let centerY = game.config.height/2;
