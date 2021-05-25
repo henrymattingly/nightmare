@@ -1,5 +1,7 @@
-class GameOver extends Phaser.Scene{
-    constructor(){
+class GameOver extends Phaser.Scene
+{
+    constructor()
+    {
         super("gameOverScene");
     }
 
@@ -10,20 +12,8 @@ class GameOver extends Phaser.Scene{
 
     create()
     {
-        this.title = this.add.tileSprite(0, 0, 1150, 1000, 'END').setOrigin(0, 0);
-        keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
-        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-    }
-
-    update()
-    {
-        if(keyM.isDown)
-        {
-            this.scene.start("menuScene");
-        }
-        if(keyR.isDown)
-        {
-            this.scene.start("playScene");
-        }
+        this.add.sprite(0, 0, 'END').setOrigin(0, 0);
+        this.input.keyboard.on('keydown-R', () => this.scene.start("playScene"));
+        this.input.keyboard.on('keydown-M', () => this.scene.start("menuScene"));
     }
 }
