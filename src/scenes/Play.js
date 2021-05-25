@@ -20,6 +20,11 @@ class Play extends Phaser.Scene {
     this.load.audio('magic', 'assets/magic_sound.mp3');
     this.load.audio('zombie_sound', 'assets/zombie_sound.mp3');
     this.load.audio('wind', 'assets/wind.mp3');
+
+    this.load.spritesheet('ZombieBackWalk', 'assets/ZombieBackWalk.png',{
+        frameWidth: 32,
+        frameHeight: 32});
+    
     }
 
 
@@ -48,6 +53,17 @@ class Play extends Phaser.Scene {
             this.currentWeapon = 'waterball';
         });
 
+
+
+
+
+
+        this.anims.create({
+            key: 'ZombieBackWalk',
+            frames: 'ZombieBackWalk',
+            //this.anims.generateFrameNumbers('ZombieBackWalk', { start: 0, end: 4, first: 0}),
+            frameRate: 30,
+            repeat: -1});
 
 
         //preload the player and background
@@ -132,6 +148,9 @@ class Play extends Phaser.Scene {
 
         if(this.physics.world.collide(this.zombieGroup, this.projectileGroup)){
             this.zombieCollide();
+        }
+        if(this.physics.world.collide(this.zombieGroup, this.emptySprite)){
+            this.scene.start('gameOverScene'); 
         }
     }
     

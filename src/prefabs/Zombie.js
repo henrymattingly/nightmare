@@ -6,24 +6,31 @@ class Zombie extends Phaser.Physics.Arcade.Image{
         scene.physics.add.existing(this);
         this.speed = .2; 
     }
+    preload(){
+
+    }
     
+    create()
+    {
+
+    }
     
 
     update()
     {
-        if(this.y < game.config.height/2)
+        if(this.y < game.config.height/2) //top
         {
             this.y += this.speed; 
         }
-        if(this.x < game.config.width/2)
+        if(this.x < game.config.width/2) //left
         {
             this.x += this.speed;
         }
-        if(this.y > game.config.height/2)
+        if(this.y > game.config.height/2) //bottom
         {
             this.y -= this.speed; 
         }
-        if(this.x > game.config.width/2)
+        if(this.x > game.config.width/2) //right
         {
             this.x -= this.speed;
         }
