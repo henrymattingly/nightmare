@@ -6,16 +6,4 @@ class player extends Phaser.GameObjects.Sprite{
         scene.physics.add.existing(this);
 
     }
-
-    preload(){
-        this.load.image('reaperF', 'assets/RPFront.png');
-        this.load.image('reaperB', 'assets/RPBack.png');
-        this.load.image('reaperL', 'assets/RPLeft.png');
-        this.load.image('reaperR', 'assets/RPRight.png');
-    
-        }
-
-    update(){
-        
-    }
 }
