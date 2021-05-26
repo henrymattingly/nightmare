@@ -6,8 +6,6 @@ class Play extends Phaser.Scene {
 
     preload(){
 
-    this.load.image('kylo', 'assets/kylo.png');
-
     this.load.image('forest', 'assets/background.png');
 
     this.load.image('reaperF', 'assets/RPFront.png');
@@ -74,7 +72,6 @@ class Play extends Phaser.Scene {
         //preload the player and background
         this.background = this.add.tileSprite(0, 0, 1150, 1000, 'forest').setOrigin(0, 0);
         this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
-        this.emptySprite = this.physics.add.sprite(centerX, centerY,'kylo').setOrigin(.5);
 
 
         this.projectileGroup = this.add.group({
@@ -134,16 +131,23 @@ class Play extends Phaser.Scene {
 
     update(){
 
-        let angle = Phaser.Math.Angle.Between(this.emptySprite.x, this.emptySprite.y, input.x, input.y);
-        this.emptySprite.setRotation(angle + Math.PI /2);
+        let angle = Phaser.Math.Angle.Between(this.reaper.x, this.reaper.y, input.x, input.y);
 
-        if (angle > 0)
+        if (angle > 1 && angle < 2.5)
         {
             this.reaper.setTexture('reaperF');
         }
+        else if(angle < 1 && angle > -1)
+        {
+            this.reaper.setTexture('reaperR');
+        }
+        else if( angle < -1 && angle > -2.5)
+        {
+            this.reaper.setTexture('reaperB')
+        }
         else
         {
-            this.reaper.setTexture('reaperB');
+            this.reaper.setTexture('reaperL');
         }
         
 
@@ -161,7 +165,7 @@ class Play extends Phaser.Scene {
             zombie.destroy();
             projectile.destroy();
         });
-        if(this.physics.world.collide(this.zombieGroup, this.emptySprite)){
+        if(this.physics.world.collide(this.zombieGroup, this.reaper)){
             this.scene.start('gameOverScene'); 
         }
     }
