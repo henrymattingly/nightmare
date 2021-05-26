@@ -11,8 +11,9 @@ class Zombie extends Phaser.Physics.Arcade.Image
     }
     takeDamage()
     {
-        this.health -=1;
+        this.health -= 1;
     }
+
     update()
     {
         if (this.health <= 0)
