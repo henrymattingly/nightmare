@@ -17,6 +17,8 @@ class Play extends Phaser.Scene {
     this.load.image('lightning', 'assets/lightning.png');
     this.load.image('waterball', 'assets/water.png');
     this.load.image('fire','assets/fire.png');
+
+
     this.load.image('zombie', 'assets/zombie.png');
 
 
@@ -45,28 +47,21 @@ class Play extends Phaser.Scene {
         this.input.keyboard.on('keydown-E', () => 
         { 
             this.currentWeapon = 'fire';
+            this.projectileSpeed = 300;
         });
 
         this.input.keyboard.on('keydown-Q', () => 
         { 
             this.currentWeapon = 'lightning';
+            this.projectileSpeed = 700;
         });
         this.input.keyboard.on('keydown-W', () => 
         { 
             this.currentWeapon = 'waterball';
+            this.projectileSpeed = 450;
         });
 
 
-
-
-
-
-        this.anims.create({
-            key: 'ZombieBackWalk',
-            frames: 'ZombieBackWalk',
-            //this.anims.generateFrameNumbers('ZombieBackWalk', { start: 0, end: 4, first: 0}),
-            frameRate: 30,
-            repeat: -1});
 
 
         //preload the player and background
@@ -105,23 +100,32 @@ class Play extends Phaser.Scene {
 
         let [x,y] = spawnPoints[i];
 
+        const monsters = [
+            'zombie',
+            'waterball',
+            'lightning',
+            'fire'
+        ];
+
+        let j = Phaser.Math.Between(0, monsters.length -1);
+
 
         //change the sprite of the zombie depending on spawn location
-        if(x == game.config.width/2 && y == 0)
+        if(x == game.config.width/2 && y == 0) //top
         {
-            this.zombieGroup.add(new Zombie(this, x, y, 'fire'));
+            this.zombieGroup.add(new Zombie(this, x, y, monsters[j]));
         }
-        if(x == 0 && y == game.config.height/2)
+        if(x == 0 && y == game.config.height/2) //left
         {
-            this.zombieGroup.add(new Zombie(this, x, y, 'waterball'));
+            this.zombieGroup.add(new Zombie(this, x, y, monsters[j]));
         }
-        if(x == game.config.width/2 && y == game.config.height)
+        if(x == game.config.width/2 && y == game.config.height) //bottom
         {
-            this.zombieGroup.add(new Zombie(this, x, y, 'lightning'));
+            this.zombieGroup.add(new Zombie(this, x, y, monsters[j]));
         }
-        if(x == game.config.width && y == game.config.height/2)
+        if(x == game.config.width && y == game.config.height/2) //right
         {
-            this.zombieGroup.add(new Zombie(this, x, y, 'zombie'));
+            this.zombieGroup.add(new Zombie(this, x, y, monsters[j]));
         }
         this.sound.play('zombie_sound');
     }
@@ -155,14 +159,14 @@ class Play extends Phaser.Scene {
         {
             this.projectile = this.physics.add.sprite(centerX, centerY, this.currentWeapon);
             this.projectileGroup.add(this.projectile);
-            this.physics.moveTo(this.projectile, input.x, input.y, 500);
+            this.physics.moveTo(this.projectile, input.x, input.y, this.projectileSpeed);
             this.sound.play('magic');
         }  
 
 
 
         this.physics.world.overlap(this.zombieGroup, this.projectileGroup, (zombie,projectile) => {
-            zombie.destroy();
+            zombie.takeDamage();
             projectile.destroy();
         });
         if(this.physics.world.collide(this.zombieGroup, this.reaper)){
