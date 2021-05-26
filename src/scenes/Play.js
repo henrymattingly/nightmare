@@ -26,9 +26,27 @@ class Play extends Phaser.Scene {
     this.load.audio('zombie_sound', 'assets/zombie_sound.mp3');
     this.load.audio('wind', 'assets/wind.mp3');
 
-    this.load.spritesheet('ZombieBackWalk', 'assets/ZombieBackWalk.png',{
-        frameWidth: 32,
-        frameHeight: 32});
+
+    this.load.spritesheet('ReaperFront', 'assets/ReaperFront.png',{
+        frameWidth: 640,
+        frameHeight: 640,
+        start: 1,
+        end: 4});
+    this.load.spritesheet('ReaperBack', 'assets/ReaperBack.png',{
+        frameWidth: 640,
+        frameHeight: 640,
+        start: 1,
+        end: 4});
+    this.load.spritesheet('ReaperRight', 'assets/ReaperRight.png',{
+        frameWidth: 640,
+        frameHeight: 640,
+        start: 1,
+       end: 4});
+    this.load.spritesheet('ReaperLeft', 'assets/ReaperLeft.png',{
+        frameWidth: 640,
+        frameHeight: 640,
+        start: 1,
+        end: 4});
     
     }
 
@@ -62,12 +80,31 @@ class Play extends Phaser.Scene {
         });
 
 
-
-
         //preload the player and background
         this.background = this.add.tileSprite(0, 0, 1150, 1000, 'forest').setOrigin(0, 0);
         this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
 
+        this.reaperAni = this.add.sprite(centerX, centerY, 'ReaperFront').setOrigin(0,0);
+        this.anims.create({
+            key: 'Front',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('ReaperFront', {start: 0, end:4})
+        });
+        this.anims.create({
+            key: 'Back',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('ReaperBack', {start: 0, end:4})
+        });
+        this.anims.create({
+            key: 'Right',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('ReaperRight', {start: 0, end:4})
+        });
+        this.anims.create({
+            key: 'Left',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('ReaperLeft', {start: 0, end:4})
+        });
 
         this.projectileGroup = this.add.group({
            runChildUpdate: true 
@@ -126,6 +163,7 @@ class Play extends Phaser.Scene {
         if(x == game.config.width && y == game.config.height/2) //right
         {
             this.zombieGroup.add(new Zombie(this, x, y, monsters[j]));
+
         }
         this.sound.play('zombie_sound');
     }
@@ -140,28 +178,54 @@ class Play extends Phaser.Scene {
         if (angle > 1 && angle < 2.5)
         {
             this.reaper.setTexture('reaperF');
-        }
-        else if(angle < 1 && angle > -1)
-        {
-            this.reaper.setTexture('reaperR');
-        }
-        else if( angle < -1 && angle > -2.5)
-        {
-            this.reaper.setTexture('reaperB')
-        }
-        else
-        {
-            this.reaper.setTexture('reaperL');
-        }
-        
-
-        if(Phaser.Input.Keyboard.JustDown(keySPACE))
+            if(Phaser.Input.Keyboard.JustDown(keySPACE))
         {
             this.projectile = this.physics.add.sprite(centerX, centerY, this.currentWeapon);
             this.projectileGroup.add(this.projectile);
             this.physics.moveTo(this.projectile, input.x, input.y, this.projectileSpeed);
             this.sound.play('magic');
-        }  
+            this.reaperAni.play('Front');
+        }
+        }
+        else if(angle < 1 && angle > -1)
+        {
+            this.reaper.setTexture('reaperR');
+            if(Phaser.Input.Keyboard.JustDown(keySPACE))
+        {
+            this.projectile = this.physics.add.sprite(centerX, centerY, this.currentWeapon);
+            this.projectileGroup.add(this.projectile);
+            this.physics.moveTo(this.projectile, input.x, input.y, this.projectileSpeed);
+            this.sound.play('magic');
+            this.reaperAni.play('Right');
+        }
+        }
+        else if( angle < -1 && angle > -2.5)
+        {
+            this.reaper.setTexture('reaperB')
+            if(Phaser.Input.Keyboard.JustDown(keySPACE))
+        {
+            this.projectile = this.physics.add.sprite(centerX, centerY, this.currentWeapon);
+            this.projectileGroup.add(this.projectile);
+            this.physics.moveTo(this.projectile, input.x, input.y, this.projectileSpeed);
+            this.sound.play('magic');
+            this.reaperAni.play('Back');
+        }
+        }
+        else
+        {
+            this.reaper.setTexture('reaperL');
+            if(Phaser.Input.Keyboard.JustDown(keySPACE))
+        {
+            this.projectile = this.physics.add.sprite(centerX, centerY, this.currentWeapon);
+            this.projectileGroup.add(this.projectile);
+            this.physics.moveTo(this.projectile, input.x, input.y, this.projectileSpeed);
+            this.sound.play('magic');
+            this.reaperAni.play('Left');
+        }
+        }
+        
+
+  
 
 
 
