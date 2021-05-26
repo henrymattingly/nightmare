@@ -6,6 +6,7 @@ class Play extends Phaser.Scene {
 
     preload(){
 
+        
     this.load.image('forest', 'assets/background.png');
 
     this.load.image('reaperF', 'assets/RPFront.png');
@@ -24,7 +25,7 @@ class Play extends Phaser.Scene {
 
     this.load.audio('magic', 'assets/magic_sound.mp3');
     this.load.audio('zombie_sound', 'assets/zombie_sound.mp3');
-    this.load.audio('wind', 'assets/wind.mp3');
+    this.load.audio('wind', 'assets/boo.mp3');
 
 
     this.load.spritesheet('ReaperFront', 'assets/ReaperFront.png',{
