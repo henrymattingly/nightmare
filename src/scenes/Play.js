@@ -173,6 +173,15 @@ class Play extends Phaser.Scene {
 
         let j = Phaser.Math.Between(0, monsters.length -1);
 
+        const monsterOrientation = [
+            'ZombieFront',
+            'ZombieBack',
+            'ZombieRight',
+            'ZombieLeft',
+            'Troll',
+            'Ghost',
+        ];
+
 
         //change the sprite of the zombie depending on spawn location
         if(x == game.config.width/2 && y == 0) //top
