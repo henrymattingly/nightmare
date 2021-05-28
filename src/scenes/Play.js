@@ -29,23 +29,23 @@ class Play extends Phaser.Scene {
 
 
     this.load.spritesheet('ReaperFront', 'assets/ReaperFront.png',{
-        frameWidth: 120,
-        frameHeight: 32,
+        frameWidth: 64,
+        frameHeight: 64,
         start: 0,
         end: 4});
     this.load.spritesheet('ReaperBack', 'assets/ReaperBack.png',{
-        frameWidth: 640,
-        frameHeight: 640,
+        frameWidth: 64,
+        frameHeight: 64,
         start: 0,
         end: 4});
     this.load.spritesheet('ReaperRight', 'assets/ReaperRight.png',{
-        frameWidth: 640,
-        frameHeight: 640,
+        frameWidth: 64,
+        frameHeight: 64,
         start: 0,
        end: 4});
     this.load.spritesheet('ReaperLeft', 'assets/ReaperLeft.png',{
-        frameWidth: 640,
-        frameHeight: 640,
+        frameWidth: 64,
+        frameHeight: 64,
         start: 0,
         end: 4});
     
@@ -90,7 +90,7 @@ class Play extends Phaser.Scene {
         });
 
         this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
-        this.reaperAni = this.add.sprite(centerX, centerY, 'ReaperFront').setOrigin(0,0);
+        this.reaperAni = this.add.sprite(centerX, centerY, 'ReaperFront').setOrigin(.5);
 
         this.anims.create({
             key: 'Front',
