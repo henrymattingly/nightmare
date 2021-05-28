@@ -139,7 +139,7 @@ class Play extends Phaser.Scene {
            runChildUpdate: true 
         });
 
-        this.zombieGroup = this.add.group({
+        this.monsterGroup = this.add.group({
             runChildUpdate: true
         });
 
@@ -177,19 +177,19 @@ class Play extends Phaser.Scene {
         //change the sprite of the zombie depending on spawn location
         if(x == game.config.width/2 && y == 0) //top
         {
-            this.zombieGroup.add(new Zombie(this, x, y, monsters[j]));
+            this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));
         }
         if(x == 0 && y == game.config.height/2) //left
         {
-            this.zombieGroup.add(new Zombie(this, x, y, monsters[j]));
+            this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));
         }
         if(x == game.config.width/2 && y == game.config.height) //bottom
         {
-            this.zombieGroup.add(new Zombie(this, x, y, monsters[j]));
+            this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));
         }
         if(x == game.config.width && y == game.config.height/2) //right
         {
-            this.zombieGroup.add(new Zombie(this, x, y, monsters[j]));
+            this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));
 
         }
         this.sound.play('zombie_sound');
@@ -235,13 +235,13 @@ class Play extends Phaser.Scene {
         }
 
 
-        this.physics.world.overlap(this.zombieGroup, this.projectileGroup, (zombie,projectile) => {
+        this.physics.world.overlap(this.monsterGroup, this.projectileGroup, (zombie,projectile) => {
             zombie.takeDamage();
             projectile.destroy();
             this.score += 5;
             this.scoreLeft.text = this.score;
         });
-        if(this.physics.world.collide(this.zombieGroup, this.reaper)){
+        if(this.physics.world.collide(this.monsterGroup, this.reaper)){
             this.scene.start('gameOverScene'); 
         }
     }
