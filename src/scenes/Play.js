@@ -55,7 +55,7 @@ class Play extends Phaser.Scene {
     create(){
         //preload the player and background
         this.background = this.add.tileSprite(0, 0, 1150, 1000, 'forest').setOrigin(0, 0);
-        //this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
+        this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
         this.score = 0;
         this.scoreLeft = this.add.text(0, 0, this.score,{fontSize: '32px', fill: '#ecf0f1'}); 
 
@@ -89,25 +89,26 @@ class Play extends Phaser.Scene {
             this.waterBallDamage;
         });
 
-        this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
-        this.reaperAni = this.add.sprite(centerX, centerY, 'ReaperFront').setOrigin(.5);
+        //this.reaper.anims.create();
+        //this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
+        //this.reaperAni = this.add.sprite(centerX, centerY, 'ReaperFront').setOrigin(.5);
 
-        this.anims.create({
+        this.reaper.anims.create({
             key: 'Front',
             frameRate: 10,
             frames: this.anims.generateFrameNames('ReaperFront', {start: 0, end:4})
         });
-        this.anims.create({
+        this.reaper.anims.create({
             key: 'Back',
             frameRate: 10,
             frames: this.anims.generateFrameNames('ReaperBack', {start: 0, end:4})
         });
-        this.anims.create({
+        this.reaper.anims.create({
             key: 'Right',
             frameRate: 10,
             frames: this.anims.generateFrameNames('ReaperRight', {start: 0, end:4})
         });
-        this.anims.create({
+        this.reaper.anims.create({
             key: 'Left',
             frameRate: 10,
             frames: this.anims.generateFrameNames('ReaperLeft', {start: 0, end:4})
@@ -185,7 +186,7 @@ class Play extends Phaser.Scene {
             this.projectileGroup.add(this.projectile);
             this.physics.moveTo(this.projectile, input.x, input.y, this.projectileSpeed);
             this.sound.play('magic');
-            this.reaperAni.play(animation);
+            this.reaper.play(animation);
         }
     }
     update(){
@@ -194,23 +195,23 @@ class Play extends Phaser.Scene {
 
         if (angle > 1 && angle < 2.5)
         {
-            this.reaper.setTexture('reaperF');
+            //this.reaper.setTexture('reaperF');
             this.shootProjectile('Front');
         }
         else if(angle < 1 && angle > -1)
         {
-            this.reaper.setTexture('reaperR');
+            //this.reaper.setTexture('reaperR');
             this.shootProjectile('Right');
         }
         else if( angle < -1 && angle > -2.5)
         {
-            this.reaper.setTexture('reaperB')
+            //this.reaper.setTexture('reaperB')
             this.shootProjectile('Back');
 
         }
         else
         {
-            this.reaper.setTexture('reaperL');
+            //this.reaper.setTexture('reaperL');
             this.shootProjectile('Left');
         }
 
