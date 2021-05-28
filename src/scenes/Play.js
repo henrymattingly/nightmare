@@ -55,7 +55,7 @@ class Play extends Phaser.Scene {
     create(){
         //preload the player and background
         this.background = this.add.tileSprite(0, 0, 1150, 1000, 'forest').setOrigin(0, 0);
-        this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
+        //this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
         this.score = 0;
         this.scoreLeft = this.add.text(0, 0, this.score,{fontSize: '32px', fill: '#ecf0f1'}); 
 
@@ -89,6 +89,7 @@ class Play extends Phaser.Scene {
             this.waterBallDamage;
         });
 
+        this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
         this.reaperAni = this.add.sprite(centerX, centerY, 'ReaperFront').setOrigin(0,0);
 
         this.anims.create({
