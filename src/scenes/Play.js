@@ -20,7 +20,7 @@ class Play extends Phaser.Scene {
     this.load.image('fire','assets/fire.png');
 
 
-    this.load.image('zombie', 'assets/zombie.png');
+    //this.load.image('zombie', 'assets/zombie.png');
 
 
     this.load.audio('magic', 'assets/magic_sound.mp3');
@@ -44,6 +44,18 @@ class Play extends Phaser.Scene {
         start: 0,
        end: 4});
     this.load.spritesheet('ReaperLeft', 'assets/ReaperLeft.png',{
+        frameWidth: 64,
+        frameHeight: 64,
+        start: 0,
+        end: 4});
+
+    this.load.spritesheet('Ghost', 'assets/Ghost.png',{
+        frameWidth: 64,
+        frameHeight: 64,
+        start: 0,
+        end: 4});
+
+    this.load.spritesheet('ZombieFront', 'assets/ZombieFront.png',{
         frameWidth: 64,
         frameHeight: 64,
         start: 0,
@@ -89,9 +101,7 @@ class Play extends Phaser.Scene {
             this.waterBallDamage;
         });
 
-        //this.reaper.anims.create();
-        //this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
-        //this.reaperAni = this.add.sprite(centerX, centerY, 'ReaperFront').setOrigin(.5);
+        
 
         this.reaper.anims.create({
             key: 'Front',
@@ -114,11 +124,20 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNames('ReaperLeft', {start: 0, end:4})
         });
 
+        this.anims.create({
+            key : 'Ghost',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('Ghost', {start: 0, end:4})
+        });
+        this.anims.create({
+            key : 'ZombieFront',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('ZombieFront', {start: 0, end:4})
+        });
+
         this.projectileGroup = this.add.group({
            runChildUpdate: true 
         });
-    
-
 
         this.zombieGroup = this.add.group({
             runChildUpdate: true
@@ -146,8 +165,8 @@ class Play extends Phaser.Scene {
         let [x,y] = spawnPoints[i];
 
         const monsters = [
-            'zombie',
-            'waterball',
+            'ZombieFront',
+            'Ghost',
             'lightning',
             'fire'
         ];
