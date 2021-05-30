@@ -60,6 +60,21 @@ class Play extends Phaser.Scene {
         frameHeight: 64,
         start: 0,
         end: 4});
+    this.load.spritesheet('ZombieBack', 'assets/ZombieBack.png',{
+        frameWidth: 64,
+        frameHeight: 64,
+        start: 0,
+        end: 4});
+    this.load.spritesheet('ZombieLeft', 'assets/ZombieLeft.png',{
+        frameWidth: 64,
+        frameHeight: 64,
+        start: 0,
+        end: 4});
+    this.load.spritesheet('ZombieRight', 'assets/ZombieRight.png',{
+        frameWidth: 64,
+        frameHeight: 64,
+        start: 0,
+        end: 4});
     
     }
 
@@ -133,6 +148,21 @@ class Play extends Phaser.Scene {
             key : 'ZombieFront',
             frameRate: 10,
             frames: this.anims.generateFrameNames('ZombieFront', {start: 0, end:4})
+        });
+        this.anims.create({
+            key : 'ZombieBack',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('ZombieBack', {start: 0, end:4})
+        });
+        this.anims.create({
+            key : 'ZombieLeft',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('ZombieLeft', {start: 0, end:4})
+        });
+        this.anims.create({
+            key : 'ZombieRight',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('ZombieRight', {start: 0, end:4})
         });
 
         this.projectileGroup = this.add.group({
