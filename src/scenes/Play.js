@@ -165,8 +165,8 @@ class Play extends Phaser.Scene {
         let [x,y] = spawnPoints[i];
 
         const monsters = [
-            'ZombieFront',
-            'Ghost',
+            'Zombie',
+            'waterball',
             'lightning',
             'fire'
         ];
@@ -186,24 +186,23 @@ class Play extends Phaser.Scene {
         //change the sprite of the zombie depending on spawn location
         if(x == game.config.width/2 && y == 0) //top
         {
-            this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));
+            this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));  
         }
         if(x == 0 && y == game.config.height/2) //left
         {
-            this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));
+            this.monsterGroup.add(new Troll(this, x, y, monsters[j]));
         }
         if(x == game.config.width/2 && y == game.config.height) //bottom
         {
-            this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));
+            this.monsterGroup.add(new Ghost(this, x, y, monsters[j]));
         }
         if(x == game.config.width && y == game.config.height/2) //right
         {
-            this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));
+            this.monsterGroup.add(new Ghost(this, x, y, monsters[j]));
 
         }
         this.sound.play('zombie_sound');
     }
-
 
 
     shootProjectile(animation)
