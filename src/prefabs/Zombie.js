@@ -1,4 +1,4 @@
-class Zombie extends Phaser.Physics.Arcade.Sprite
+class Zombie extends Phaser.GameObjects.Sprite
 {
     constructor(scene, x, y, texture, frame) 
     {
@@ -8,6 +8,55 @@ class Zombie extends Phaser.Physics.Arcade.Sprite
         scene.physics.add.existing(this);
         this.speed = .2; 
         this.health = 3;
+
+        /*
+        this.load.spritesheet('ZombieFront', 'assets/ZombieFront.png',{
+            frameWidth: 64,
+            frameHeight: 64,
+            start: 0,
+            end: 4});
+        this.load.spritesheet('ZombieBack', 'assets/ZombieBack.png',{
+            frameWidth: 64,
+            frameHeight: 64,
+            start: 0,
+            end: 4});
+        this.load.spritesheet('ZombieLeft', 'assets/ZombieLeft.png',{
+            frameWidth: 64,
+            frameHeight: 64,
+            start: 0,
+            end: 4});
+        this.load.spritesheet('ZombieRight', 'assets/ZombieRight.png',{
+            frameWidth: 64,
+            frameHeight: 64,
+            start: 0,
+            end: 4});
+        */
+        this.anims.create({
+            key : 'Ghost',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('Ghost', {start: 0, end:4})
+        });
+        this.anims.create({
+            key : 'ZombieFront',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('ZombieFront', {start: 0, end:4})
+        });
+        this.anims.create({
+            key : 'ZombieBack',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('ZombieBack', {start: 0, end:4})
+        });
+        this.anims.create({
+            key : 'ZombieLeft',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('ZombieLeft', {start: 0, end:4})
+        });
+        this.anims.create({
+            key : 'ZombieRight',
+            frameRate: 10,
+            frames: this.anims.generateFrameNames('ZombieRight', {start: 0, end:4})
+        });
+        
     }
 
     takeDamage()

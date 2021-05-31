@@ -75,7 +75,6 @@ class Play extends Phaser.Scene {
         frameHeight: 64,
         start: 0,
         end: 4});
-    
     }
 
 
@@ -138,7 +137,7 @@ class Play extends Phaser.Scene {
             frameRate: 10,
             frames: this.anims.generateFrameNames('ReaperLeft', {start: 0, end:4})
         });
-
+/*
         this.anims.create({
             key : 'Ghost',
             frameRate: 10,
@@ -164,7 +163,7 @@ class Play extends Phaser.Scene {
             frameRate: 10,
             frames: this.anims.generateFrameNames('ZombieRight', {start: 0, end:4})
         });
-
+*/
         this.projectileGroup = this.add.group({
            runChildUpdate: true 
         });
@@ -203,17 +202,7 @@ class Play extends Phaser.Scene {
 
         let j = Phaser.Math.Between(0, monsters.length -1);
 
-        const monsterOrientation = [
-            'ZombieFront',
-            'ZombieBack',
-            'ZombieRight',
-            'ZombieLeft',
-            'Troll',
-            'Ghost',
-        ];
-
-
-        //change the sprite of the zombie depending on spawn location
+        //change the sprite of the depending on spawn location
         if(x == game.config.width/2 && y == 0) //top
         {
             this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));  

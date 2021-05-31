@@ -1,4 +1,4 @@
-class Troll extends Phaser.Physics.Arcade.Image
+class Troll extends Phaser.GameObjects.Sprite
 {
     constructor(scene, x, y, texture, frame) 
     {
