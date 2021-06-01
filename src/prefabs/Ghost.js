@@ -8,6 +8,8 @@ class Ghost extends Phaser.GameObjects.Sprite
         scene.physics.add.existing(this);
         this.speed = .35; 
         this.health = 5;
+
+
         this.anims.create({
             key : 'Ghost',
             frameRate: 10,
@@ -22,14 +24,11 @@ class Ghost extends Phaser.GameObjects.Sprite
 
     update()
     {
-        if (this.health <= 0)
-        {
-            this.destroy();
-        }
+
         if(this.y < game.config.height/2) //top
         {
             this.play('Ghost', true);
-            this.y += this.speed; 
+                this.y += this.speed; 
         }
         if(this.x < game.config.width/2) //left
         {
@@ -46,7 +45,10 @@ class Ghost extends Phaser.GameObjects.Sprite
             this.play('Ghost', true);
             this.x -= this.speed;
         }
-    
-    }
+        if (this.health <= 0)
+        {
+            this.destroy();
+        }
+     }
 
 }

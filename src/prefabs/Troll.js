@@ -23,10 +23,6 @@ class Troll extends Phaser.GameObjects.Sprite
 
     update()
     {
-        if (this.health <= 0)
-        {
-            this.destroy();
-        }
         if(this.y < game.config.height/2) //top
         {
             this.play('Troll', true);
@@ -46,6 +42,10 @@ class Troll extends Phaser.GameObjects.Sprite
         {
             this.play('Troll', true);
             this.x -= this.speed;
+        }
+        if (this.health <= 0)
+        {
+            this.destroy();
         }
     
     }

@@ -41,11 +41,6 @@ class Zombie extends Phaser.GameObjects.Sprite
 
     update()
     {
-        if (this.health <= 0)
-        {
-            this.destroy();
-            this.score += 5;
-        }
         if(this.y < game.config.height/2) //top
         {
             this.play('ZombieFront',true);
@@ -66,7 +61,11 @@ class Zombie extends Phaser.GameObjects.Sprite
             this.play('ZombieLeft',true)
             this.x -= this.speed;
         }
-    
+        if (this.health <= 0)
+        {
+            this.destroy();
+            this.score += 5;
+        }
     }
 
 }
