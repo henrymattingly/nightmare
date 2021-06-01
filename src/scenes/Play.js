@@ -180,8 +180,7 @@ class Play extends Phaser.Scene {
         
         //this.lantern = this.add.sprite(408, 355, 'Lantern').setOrigin(0,0);
         this.reaper = new player(this, centerX, centerY, 'ReaperFront').setOrigin(.5);
-        this.score = 0;
-        this.scoreLeft = this.add.text(0, 0, this.score,{fontSize: '72px', fill: '#ecf0f1'}); 
+        this.score = 0; 
 
         this.sound.play('wind');
 
@@ -279,6 +278,8 @@ class Play extends Phaser.Scene {
             loop: true,
         });
         this.trees = this.add.tileSprite(0, 0, 1150, 1000, 'trees').setOrigin(0, 0);
+        this.text = this.add.text (0,0, 'Damage Done: ');
+        this.scoreLeft = this.add.text(0, 20, this.score,{fontSize: '72px', fill: '#ecf0f1'});
     }
 
    
