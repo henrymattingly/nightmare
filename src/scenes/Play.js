@@ -5,14 +5,16 @@ class Play extends Phaser.Scene {
     
 
     preload(){
-
         
-    this.load.image('forest', 'assets/background.png');
+    this.load.image('lanternBackground','assets/Background_Sign.png');
+    this.load.image('trees', 'assets/Trees.png');
 
-    this.load.image('reaperF', 'assets/RPFront.png');
-    this.load.image('reaperB', 'assets/RPBack.png');
-    this.load.image('reaperL', 'assets/RPLeft.png');
-    this.load.image('reaperR', 'assets/RPRight.png');
+    this.load.spritesheet('Lantern', 'assets/Lantern_Sheet.png',{
+        frameWidth: 64,
+        frameHeight: 64,
+        start: 0,
+        end: 4});    
+
 
 
     this.load.image('lightning', 'assets/lightning.png');
@@ -75,15 +77,111 @@ class Play extends Phaser.Scene {
         frameHeight: 64,
         start: 0,
         end: 4});
+
+    this.load.spritesheet('Troll', 'assets/Troll.png',{
+        frameWidth: 64,
+        frameHeight: 64,
+        start: 0,
+        end: 4});
+    }
+
+
+    addMonster(){
+        const spawnPoints = [
+            [game.config.width/2, 0], //top
+            [0, game.config.height/2], //left
+            [game.config.width/2, game.config.height], //bottom
+            [game.config.width, game.config.height/2] //right
+        ];
+
+        let i = Phaser.Math.Between(0, spawnPoints.length - 1);
+
+        let [x,y] = spawnPoints[i];
+
+        const monsters = [
+            'Zombie',
+            'Ghost',
+            'Troll'
+        ];
+
+        let j = Phaser.Math.Between(0, monsters.length -1);
+
+        //change the sprite of the depending on spawn location
+        if(x == game.config.width/2 && y == 0) //top
+        {
+            if(j == 0)
+            {
+                this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));
+            }
+            else if(j == 1)
+            {
+                this.monsterGroup.add(new Ghost(this, x, y, monsters[j]));
+            }
+            else 
+            {
+                this.monsterGroup.add(new Troll(this, x, y, monsters[j]));
+            }
+        }
+        if(x == 0 && y == game.config.height/2) //left
+        {
+            if(j == 0)
+            {
+                this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));
+            }
+            else if(j == 1)
+            {
+                this.monsterGroup.add(new Ghost(this, x, y, monsters[j]));
+            }
+            else 
+            {
+                this.monsterGroup.add(new Troll(this, x, y, monsters[j]));
+            }
+        }
+        if(x == game.config.width/2 && y == game.config.height) //bottom
+        {
+            if(j == 0)
+            {
+                this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));
+            }
+            else if(j == 1)
+            {
+                this.monsterGroup.add(new Ghost(this, x, y, monsters[j]));
+            }
+            else 
+            {
+                this.monsterGroup.add(new Troll(this, x, y, monsters[j]));
+            }
+        }
+        if(x == game.config.width && y == game.config.height/2) //right
+        {
+            if(j == 0)
+            {
+                this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));
+            }
+            else if(j == 1)
+            {
+                this.monsterGroup.add(new Ghost(this, x, y, monsters[j]));
+            }
+            else 
+            {
+                this.monsterGroup.add(new Troll(this, x, y, monsters[j]));
+            }
+
+        }
+       // this.lantern.play('Lantern',true);
+        this.sound.play('zombie_sound');
+
     }
 
 
     create(){
         //preload the player and background
-        this.background = this.add.tileSprite(0, 0, 1150, 1000, 'forest').setOrigin(0, 0);
-        this.reaper = new player(this, centerX, centerY, 'reaperF').setOrigin(.5);
+        this.Background = this.add.tileSprite(0, 0, 1150, 1000, 'lanternBackground').setOrigin(0, 0);
+        
+        //this.lantern = this.add.sprite(408, 355, 'Lantern').setOrigin(0,0);
+        this.reaper = new player(this, centerX, centerY, 'ReaperFront').setOrigin(.5);
         this.score = 0;
-        this.scoreLeft = this.add.text(0, 0, this.score,{fontSize: '32px', fill: '#ecf0f1'}); 
+        this.scoreLeft = this.add.text(0, 0, this.score,{fontSize: '72px', fill: '#ecf0f1'}); 
 
         this.sound.play('wind');
 
@@ -137,6 +235,7 @@ class Play extends Phaser.Scene {
             frameRate: 10,
             frames: this.anims.generateFrameNames('ReaperLeft', {start: 0, end:4})
         });
+
 /*
         this.anims.create({
             key : 'Ghost',
@@ -179,49 +278,11 @@ class Play extends Phaser.Scene {
             },
             loop: true,
         });
+        this.trees = this.add.tileSprite(0, 0, 1150, 1000, 'trees').setOrigin(0, 0);
     }
 
-    addMonster(){
-        const spawnPoints = [
-            [game.config.width/2, 0], //top
-            [0, game.config.height/2], //left
-            [game.config.width/2, game.config.height], //bottom
-            [game.config.width, game.config.height/2] //right
-        ];
+   
 
-        let i = Phaser.Math.Between(0, spawnPoints.length - 1);
-
-        let [x,y] = spawnPoints[i];
-
-        const monsters = [
-            'Zombie',
-            'waterball',
-            'lightning',
-            'fire'
-        ];
-
-        let j = Phaser.Math.Between(0, monsters.length -1);
-
-        //change the sprite of the depending on spawn location
-        if(x == game.config.width/2 && y == 0) //top
-        {
-            this.monsterGroup.add(new Zombie(this, x, y, monsters[j]));  
-        }
-        if(x == 0 && y == game.config.height/2) //left
-        {
-            this.monsterGroup.add(new Troll(this, x, y, monsters[j]));
-        }
-        if(x == game.config.width/2 && y == game.config.height) //bottom
-        {
-            this.monsterGroup.add(new Ghost(this, x, y, monsters[j]));
-        }
-        if(x == game.config.width && y == game.config.height/2) //right
-        {
-            this.monsterGroup.add(new Ghost(this, x, y, monsters[j]));
-
-        }
-        this.sound.play('zombie_sound');
-    }
 
 
     shootProjectile(animation)
