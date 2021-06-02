@@ -6,15 +6,15 @@ class Play extends Phaser.Scene {
 
     preload(){
         
-    this.load.image('Background','assets/Background.png');
+    this.load.image('lanternBackground','assets/Background.png');
+    this.load.image('trees', 'assets/Trees.png');
 
-    /*
     this.load.spritesheet('Lantern', 'assets/Lantern_Sheet.png',{
         frameWidth: 64,
         frameHeight: 64,
         start: 0,
         end: 4});    
-*/
+
 
 
     this.load.image('lightning', 'assets/lightning.png');
@@ -22,7 +22,11 @@ class Play extends Phaser.Scene {
     this.load.image('fire','assets/fire.png');
 
 
+    //this.load.image('zombie', 'assets/zombie.png');
+
+
     this.load.audio('magic', 'assets/magic_sound.mp3');
+    this.load.audio('zombie_sound', 'assets/zombie_sound.mp3');
     this.load.audio('wind', 'assets/boo.mp3');
 
 
@@ -164,14 +168,12 @@ class Play extends Phaser.Scene {
             }
 
         }
-        this.load.image('Background','assets/Background.png');
-
     }
 
 
     create(){
         //preload the player and background
-        this.background = this.add.tileSprite(0, 0, 'Background').setOrigin(0, 0);
+        this.Background = this.add.tileSprite(0, 0, 1150, 1000, 'lanternBackground').setOrigin(0, 0);
         
         //this.lantern = this.add.sprite(408, 355, 'Lantern').setOrigin(0,0);
         this.reaper = new player(this, centerX, centerY, 'ReaperFront').setOrigin(.5);
@@ -206,6 +208,9 @@ class Play extends Phaser.Scene {
             this.projectileSpeed = 450;
             this.waterBallDamage;
         });
+
+        
+
         this.reaper.anims.create({
             key: 'Front',
             frameRate: 10,
