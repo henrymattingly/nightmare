@@ -6,15 +6,15 @@ class Play extends Phaser.Scene {
 
     preload(){
         
-    this.load.image('lanternBackground','assets/Background_Sign.png');
-    this.load.image('trees', 'assets/Trees.png');
+    this.load.image('Background','assets/Background.png');
 
+    /*
     this.load.spritesheet('Lantern', 'assets/Lantern_Sheet.png',{
         frameWidth: 64,
         frameHeight: 64,
         start: 0,
         end: 4});    
-
+*/
 
 
     this.load.image('lightning', 'assets/lightning.png');
@@ -22,11 +22,7 @@ class Play extends Phaser.Scene {
     this.load.image('fire','assets/fire.png');
 
 
-    //this.load.image('zombie', 'assets/zombie.png');
-
-
     this.load.audio('magic', 'assets/magic_sound.mp3');
-    this.load.audio('zombie_sound', 'assets/zombie_sound.mp3');
     this.load.audio('wind', 'assets/boo.mp3');
 
 
@@ -168,15 +164,14 @@ class Play extends Phaser.Scene {
             }
 
         }
-       // this.lantern.play('Lantern',true);
-        this.sound.play('zombie_sound');
+        this.load.image('Background','assets/Background.png');
 
     }
 
 
     create(){
         //preload the player and background
-        this.Background = this.add.tileSprite(0, 0, 1150, 1000, 'lanternBackground').setOrigin(0, 0);
+        this.background = this.add.tileSprite(0, 0, 'Background').setOrigin(0, 0);
         
         //this.lantern = this.add.sprite(408, 355, 'Lantern').setOrigin(0,0);
         this.reaper = new player(this, centerX, centerY, 'ReaperFront').setOrigin(.5);
@@ -211,9 +206,6 @@ class Play extends Phaser.Scene {
             this.projectileSpeed = 450;
             this.waterBallDamage;
         });
-
-        
-
         this.reaper.anims.create({
             key: 'Front',
             frameRate: 10,
@@ -235,33 +227,6 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNames('ReaperLeft', {start: 0, end:4})
         });
 
-/*
-        this.anims.create({
-            key : 'Ghost',
-            frameRate: 10,
-            frames: this.anims.generateFrameNames('Ghost', {start: 0, end:4})
-        });
-        this.anims.create({
-            key : 'ZombieFront',
-            frameRate: 10,
-            frames: this.anims.generateFrameNames('ZombieFront', {start: 0, end:4})
-        });
-        this.anims.create({
-            key : 'ZombieBack',
-            frameRate: 10,
-            frames: this.anims.generateFrameNames('ZombieBack', {start: 0, end:4})
-        });
-        this.anims.create({
-            key : 'ZombieLeft',
-            frameRate: 10,
-            frames: this.anims.generateFrameNames('ZombieLeft', {start: 0, end:4})
-        });
-        this.anims.create({
-            key : 'ZombieRight',
-            frameRate: 10,
-            frames: this.anims.generateFrameNames('ZombieRight', {start: 0, end:4})
-        });
-*/
         this.projectileGroup = this.add.group({
            runChildUpdate: true 
         });
