@@ -7,28 +7,36 @@ class Play extends Phaser.Scene {
     preload(){
         
     this.load.image('lanternBackground','assets/Background_Sign.png');
-    this.load.image('trees', 'assets/Trees.png');
+    this.load.image('treeTop', 'assets/treeTop.png');
+    
+    this.load.spritesheet('leftTree', 'assets/Left_Tree_Sheet.png',
+    {
+        frameWidth: 544,
+        frameHeight: 476,
+        start: 0,
+        end: 4
+    });
+    this.load.spritesheet('rightTree', 'assets/Right_Tree_Sheet.png',
+    {
+        frameWidth: 487.2,
+        frameHeight: 476,
+        start: 0,
+        end: 4
+    });
 
     this.load.spritesheet('Lantern', 'assets/Lantern_Sheet.png',{
-        frameWidth: 64,
-        frameHeight: 64,
+        frameWidth: 148,
+        frameHeight: 148,
         start: 0,
         end: 4});    
-
-
 
     this.load.image('lightning', 'assets/lightning.png');
     this.load.image('waterball', 'assets/water.png');
     this.load.image('fire','assets/fire.png');
 
 
-    //this.load.image('zombie', 'assets/zombie.png');
-
-
     this.load.audio('magic', 'assets/magic_sound.mp3');
-    this.load.audio('zombie_sound', 'assets/zombie_sound.mp3');
     this.load.audio('wind', 'assets/boo.mp3');
-
 
     this.load.spritesheet('ReaperFront', 'assets/ReaperFront.png',{
         frameWidth: 64,
@@ -169,13 +177,10 @@ class Play extends Phaser.Scene {
 
         }
     }
-
-
     create(){
         //preload the player and background
         this.Background = this.add.tileSprite(0, 0, 1150, 1000, 'lanternBackground').setOrigin(0, 0);
-        
-        //this.lantern = this.add.sprite(408, 355, 'Lantern').setOrigin(0,0);
+        this.topTree = this.add.sprite(0, 0,'treeTop').setOrigin(0, 0);
         this.reaper = new player(this, centerX, centerY, 'ReaperFront').setOrigin(.5);
         this.score = 0; 
 
@@ -193,23 +198,21 @@ class Play extends Phaser.Scene {
         { 
             this.currentWeapon = 'fire';
             this.projectileSpeed = 300;
-            this.fireDamage;
+            this.Damage = 5;
         });
 
         this.input.keyboard.on('keydown-Q', () => 
         { 
             this.currentWeapon = 'lightning';
             this.projectileSpeed = 700;
-            this.LightningDamage;
+            this.Damage = 1;
         });
         this.input.keyboard.on('keydown-W', () => 
         { 
             this.currentWeapon = 'waterball';
             this.projectileSpeed = 450;
-            this.waterBallDamage;
+            this.Damage = 3;
         });
-
-        
 
         this.reaper.anims.create({
             key: 'Front',
@@ -232,6 +235,26 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNames('ReaperLeft', {start: 0, end:4})
         });
 
+        this.anims.create
+        ({
+            key: 'LTree',
+            frameRate: 8,
+            frames: this.anims.generateFrameNames('leftTree', {start: 0, end: 4})
+        });
+        this.anims.create
+        ({
+            key: 'RTree',
+            frameRate: 8,
+            frames: this.anims.generateFrameNames('rightTree', {start: 0, end: 4})
+        });
+
+        this.anims.create
+        ({
+            key: 'Lantern',
+            frameRate: 4,
+            frames: this.anims.generateFrameNames('Lantern', {start: 0, end: 4})
+        });
+
         this.projectileGroup = this.add.group({
            runChildUpdate: true 
         });
@@ -247,14 +270,12 @@ class Play extends Phaser.Scene {
             },
             loop: true,
         });
-        this.trees = this.add.tileSprite(0, 0, 1150, 1000, 'trees').setOrigin(0, 0);
-        this.text = this.add.text (0,0, 'Damage Done: ');
+        this.LeftTree = this.add.sprite(275, 750, 'leftTree');
+        this.RightTree = this.add.sprite(885, 687, 'rightTree');
+        this.lantern = this.add.sprite(425, 370, 'Lantern');
+        this.text = this.add.text (0, 0, 'Damage Done: ');
         this.scoreLeft = this.add.text(0, 20, this.score,{fontSize: '72px', fill: '#ecf0f1'});
     }
-
-   
-
-
 
     shootProjectile(animation)
     {
@@ -270,29 +291,27 @@ class Play extends Phaser.Scene {
     update(){
 
         let angle = Phaser.Math.Angle.Between(this.reaper.x, this.reaper.y, input.x, input.y);
+        this.LeftTree.play('LTree', true);
+        this.RightTree.play('RTree',true);
+        this.lantern.play('Lantern',true);
 
         if (angle > 1 && angle < 2.5)
         {
-            //this.reaper.setTexture('reaperF');
             this.shootProjectile('Front');
         }
         else if(angle < 1 && angle > -1)
         {
-            //this.reaper.setTexture('reaperR');
             this.shootProjectile('Right');
         }
         else if( angle < -1 && angle > -2.5)
         {
-            //this.reaper.setTexture('reaperB')
             this.shootProjectile('Back');
 
         }
         else
         {
-            //this.reaper.setTexture('reaperL');
             this.shootProjectile('Left');
         }
-
 
         this.physics.world.overlap(this.monsterGroup, this.projectileGroup, (zombie,projectile) => {
             zombie.takeDamage();
