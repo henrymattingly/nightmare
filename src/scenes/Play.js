@@ -6,7 +6,7 @@ class Play extends Phaser.Scene {
 
     preload(){
         
-    this.load.image('lanternBackground','assets/Background.png');
+    this.load.image('lanternBackground','assets/Background_Sign.png');
     this.load.image('trees', 'assets/Trees.png');
 
     this.load.spritesheet('Lantern', 'assets/Lantern_Sheet.png',{
