@@ -6,7 +6,7 @@ class Ghost extends Phaser.GameObjects.Sprite
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
-        this.speed = .35; 
+        this.speed = 1; 
         this.health = 5;
 
 
