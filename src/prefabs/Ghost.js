@@ -4,12 +4,13 @@ class Ghost extends Phaser.GameObjects.Sprite
     {
         super (scene, x, y, texture, score, frame);
 
+        //add physics and set health and speed for ghost
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.speed = 1; 
         this.health = 5;
 
-
+        //create the animation the ghost uses
         this.anims.create({
             key : 'Ghost',
             frameRate: 10,
@@ -19,12 +20,13 @@ class Ghost extends Phaser.GameObjects.Sprite
     }
     takeDamage()
     {
+        //getting hit by projectile takes damage
         this.health -= 1;
     }
 
     update()
     {
-
+        //checks the location of the ghost and moves them toward the center of map
         if(this.y < game.config.height/2) //top
         {
             this.play('Ghost', true);

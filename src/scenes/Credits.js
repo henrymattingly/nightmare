@@ -12,6 +12,7 @@ class Credits extends Phaser.Scene
 
     create()
     {
+        //load an image that tells player credits and sends back to main menu screen
         this.add.sprite(0, 0, 'Credits').setOrigin(0, 0);
         this.input.keyboard.on('keydown-M', () => this.scene.start("menuScene"));
     }

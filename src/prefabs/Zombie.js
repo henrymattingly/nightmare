@@ -4,12 +4,13 @@ class Zombie extends Phaser.GameObjects.Sprite
     {
         super (scene, x, y, texture, score, frame);
 
+        //adds physics and speed and health to zombie
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.speed = .3; 
         this.health = 10;
-        this.playanims = true;
     
+        //create animation for all directions of the zombie
         this.anims.create({
             key : 'ZombieFront',
             frameRate: 10,
@@ -41,6 +42,8 @@ class Zombie extends Phaser.GameObjects.Sprite
 
     update()
     {
+        //checks location of zombie and moves zombie toward center
+        //also has the zombie face a certain direction depending on where they spawn 
         if(this.y < game.config.height/2) //top
         {
             this.play('ZombieFront',true);
