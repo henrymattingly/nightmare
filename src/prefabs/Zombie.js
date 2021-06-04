@@ -7,7 +7,7 @@ class Zombie extends Phaser.GameObjects.Sprite
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.speed = .3; 
-        this.health = 15;
+        this.health = 10;
         this.playanims = true;
     
         this.anims.create({

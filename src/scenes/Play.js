@@ -8,6 +8,15 @@ class Play extends Phaser.Scene {
         
     this.load.image('lanternBackground','assets/Background_Sign.png');
     this.load.image('treeTop', 'assets/treeTop.png');
+    this.load.image('lightning', 'assets/lightning.png');
+    this.load.image('waterball', 'assets/water.png');
+    this.load.image('fire','assets/fire.png');
+
+    this.load.audio('magic', 'assets/magic_sound.mp3');
+    this.load.audio('wind', 'assets/boo.mp3');
+    this.load.audio('lightning_sound', 'assets/lightning.mp3');
+    this.load.audio('fire_sound', 'assets/fireblast.mp3');
+    this.load.audio('water_sound', 'assets/waterblast.mp3');
     
     this.load.spritesheet('leftTree', 'assets/Left_Tree_Sheet.png',
     {
@@ -29,14 +38,6 @@ class Play extends Phaser.Scene {
         frameHeight: 148,
         start: 0,
         end: 4});    
-
-    this.load.image('lightning', 'assets/lightning.png');
-    this.load.image('waterball', 'assets/water.png');
-    this.load.image('fire','assets/fire.png');
-
-
-    this.load.audio('magic', 'assets/magic_sound.mp3');
-    this.load.audio('wind', 'assets/boo.mp3');
 
     this.load.spritesheet('ReaperFront', 'assets/ReaperFront.png',{
         frameWidth: 64,
@@ -199,6 +200,7 @@ class Play extends Phaser.Scene {
             this.currentWeapon = 'fire';
             this.projectileSpeed = 300;
             this.Damage = 5;
+            this.magicsound = 'fire_sound';
         });
 
         this.input.keyboard.on('keydown-Q', () => 
@@ -206,12 +208,14 @@ class Play extends Phaser.Scene {
             this.currentWeapon = 'lightning';
             this.projectileSpeed = 700;
             this.Damage = 1;
+            this.magicsound = 'lightning_sound';
         });
         this.input.keyboard.on('keydown-W', () => 
         { 
             this.currentWeapon = 'waterball';
             this.projectileSpeed = 450;
             this.Damage = 3;
+            this.magicsound = 'water_sound';
         });
 
         this.reaper.anims.create({
@@ -284,7 +288,7 @@ class Play extends Phaser.Scene {
             this.projectile = this.physics.add.sprite(centerX, centerY, this.currentWeapon);
             this.projectileGroup.add(this.projectile);
             this.physics.moveTo(this.projectile, input.x, input.y, this.projectileSpeed);
-            this.sound.play('magic');
+            this.sound.play(this.magicsound);
             this.reaper.play(animation);
         }
     }

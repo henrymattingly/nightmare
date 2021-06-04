@@ -7,7 +7,7 @@ class Troll extends Phaser.GameObjects.Sprite
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.speed = .2; 
-        this.health = 20;
+        this.health = 16;
 
         this.anims.create({
             key : 'Troll',
