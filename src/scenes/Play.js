@@ -293,8 +293,20 @@ class Play extends Phaser.Scene {
             this.physics.moveTo(this.projectile, input.x, input.y, this.projectileSpeed);
             //plays which ever sounds are equiped with projectile and plays the reaper animation for its
             //direction it is looking at.
-            this.sound.play(this.magicsound);
             this.reaper.play(animation);
+            //check for current weapon, to match with sound effect
+            if(this.currentWeapon == 'waterball')
+            {
+                this.sound.play('water_sound');
+            }
+            if(this.currentWeapon == 'lightning')
+            {
+                this.sound.play('lightning_sound');
+            }
+            if(this.currentWeapon == 'fire')
+            {
+                this.sound.play('fire_sound');
+            }
         }
     }
     update(){
